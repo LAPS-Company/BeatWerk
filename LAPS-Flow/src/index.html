@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAPS Flow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>LAPS <em>FLOW</em></strong><small>DESKTOP AUTOMATION</small></div></div>
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="flows"><span class="nav-icon">◇</span><span>Workflow Studio</span><span class="nav-dot"></span></button>
+      <button class="nav-item" id="nav-activity"><span class="nav-icon">◷</span><span>Aktivitätsprotokoll</span></button>
+      <button class="nav-item" id="nav-time-machine"><span class="nav-icon">⟲</span><span>Time Machine</span></button>
+      <button class="nav-item" id="nav-marketplace"><span class="nav-icon">▦</span><span>Flow Marketplace</span></button>
+      <div class="side-label side-label-spaced">DEIN WORKSPACE</div>
+      <div class="workspace-card"><div class="workspace-avatar">L</div><div><strong>LAPS Workspace</strong><small>Lokaler Arbeitsbereich</small></div><span class="online-dot"></span></div>
+      <div class="sidebar-bottom"><div class="local-card"><span class="lock-icon">▣</span><div><strong>Lokal & privat</strong><p>Deine Flows bleiben auf diesem PC.</p></div></div><div class="sidebar-version"><span class="status-light"></span> LAPS Flow <span id="version-label">v1.0.0</span></div></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar"><div class="breadcrumbs"><span>Workspace</span><b>/</b><strong>Workflow Studio</strong></div><div class="top-actions"><div class="system-pill"><span></span> Windows Automation</div><label class="language-label" for="language-select">LANGUAGE</label><select id="language-select" class="language-select" aria-label="Language / Sprache" title="Switch language"><option value="en">English</option><option value="de">Deutsch</option></select><button class="icon-button theme-button" id="theme-btn" title="Switch to light theme" aria-label="Switch to light theme">☼</button><button class="icon-button" id="help-btn" title="Help">?</button><div class="avatar-small">L</div></div></header>
+      <section class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> VISUAL AUTOMATION BUILDER</div><h1>Dein PC. Deine Regeln.</h1><p>Baue intelligente Workflows mit Logik, Schleifen, Unter-Flows und lokalen Ereignis-Triggern.</p></div><div class="heading-graphic"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orbit-ring"></div><div class="orb-center">↯</div></div></section>
+
+      <section class="toolbar">
+        <div class="flow-title-wrap"><span class="flow-status"></span><input id="flow-name" value="My First Flow" aria-label="Workflow-Name" maxlength="100"><span class="saved-label" id="saved-label">Lokal gespeichert</span><select id="workflow-select" class="flow-select" aria-label="Workflow auswählen" title="Gespeicherten Flow auswählen"></select></div>
+        <div class="toolbar-buttons"><button class="btn btn-ghost" id="new-flow-btn"><span>＋</span> Neuer Flow</button><button class="btn btn-ghost" id="import-btn"><span>↥</span> Importieren</button><button class="btn btn-ghost" id="export-btn"><span>↧</span> Exportieren</button><button class="btn btn-ghost" id="backup-btn">Backup erstellen</button><button class="btn btn-ghost" id="restore-btn">Backup wiederherstellen</button><button class="btn btn-ghost" id="save-btn"><span>▣</span> Speichern</button><button class="btn btn-ghost" id="validate-btn">Flow prüfen</button><button class="btn btn-ghost" id="debug-btn">Debug</button><button class="btn btn-run" id="run-btn"><span class="play-icon">▶</span> Flow ausführen</button></div>
+      </section>
+
+      <section class="validation-panel" id="validation-panel" hidden aria-live="polite"></section>
+      <section class="debug-controls" id="debug-controls" hidden aria-live="polite"><div><strong>Debug-Modus</strong><p id="debug-step-info">Running the first step…</p><pre id="debug-variables" class="debug-variables" hidden></pre></div><div class="btn-row"><button class="btn btn-run" id="debug-next-btn" disabled>Weiter zum nächsten Schritt</button><button class="btn btn-ghost" id="debug-cancel-btn">Debug stoppen</button></div></section>
+
+      <section class="smart-tools panel">
+        <div class="smart-tools-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> LOCAL FLOW ARCHITECT</div><h2>Beschreiben. Entwurf erstellen. Selbst kontrollieren.</h2><p>Regelbasierte Vorschläge direkt auf deinem PC. Keine KI-Anfrage, kein Cloud-Server.</p></div><span class="local-badge">● 100% OFFLINE</span></div>
+        <div class="architect-row"><textarea id="architect-prompt" rows="2" placeholder="z. B. Öffne mein Postfach und meinen Kalender für die Arbeit …"></textarea><button class="btn btn-run" id="architect-build">Entwurf erstellen</button></div>
+        <div class="template-row"><span>STARTVORLAGEN</span><button class="template-button" id="template-school"><strong>School & Study</strong><small>Lernplattform · Drive · Kalender</small></button><button class="template-button" id="template-office"><strong>Office Worker</strong><small>Outlook · Aufgaben · OneDrive</small></button><button class="template-button" id="template-developer"><strong>Developer</strong><small>GitHub · MDN · Stack Overflow</small></button></div>
+      </section>
+
+      <section class="studio-grid">
+        <aside class="panel action-panel">
+          <div class="panel-header"><div><h2>Aktionen</h2><p>Baustein hinzufügen</p></div><span class="count-badge" id="action-count">27</span></div>
+          <div class="action-search"><span>⌕</span><input id="action-search" placeholder="Aktion suchen..." autocomplete="off"></div>
+          <div class="action-catalog" id="action-catalog"></div>
+          <div class="panel-footnote"><span>✦</span><p><strong>Pro-Tipp</strong><br>Verbinde mehrere Aktionen, um deine Routine mit einem Klick zu starten.</p></div>
+        </aside>
+
+        <section class="panel canvas-panel">
+          <div class="canvas-topline"><div><h2>Workflow-Canvas</h2><p id="step-count">0 Aktionen · Manueller Start</p></div><div class="canvas-tools"><button class="mini-button properties-open-btn" id="properties-open-btn" title="Eigenschaften anzeigen" aria-label="Eigenschaften anzeigen" hidden>⚙</button><button class="mini-button" id="clear-btn" title="Alle Aktionen entfernen">⌫</button><button class="mini-button" id="zoom-btn" title="Canvas zurücksetzen">⊞</button></div></div>
+          <div class="canvas-area" id="canvas-area">
+            <div class="flow-start-node"><span class="start-symbol">▶</span><div><strong>Manueller Start</strong><small>Du startest diesen Flow per Klick</small></div><span class="trigger-badge">TRIGGER</span></div>
+            <div class="connector start-connector"><span></span></div>
+            <div class="steps-container" id="steps-container"></div>
+            <div class="connector end-connector" id="end-connector"><span></span></div>
+            <div class="flow-end-node" id="flow-end"><span class="end-check">✓</span><div><strong>Flow abgeschlossen</strong><small>Alle Aktionen wurden ausgeführt</small></div></div>
+            <div class="canvas-hint" id="canvas-hint"><div class="hint-plus">+</div><strong>Dein Flow startet hier</strong><p>Wähle links eine Aktion aus, um deinen ersten Ablauf zu bauen.</p></div>
+          </div>
+          <div class="canvas-footer"><span><i class="footer-dot"></i> Änderungen werden automatisch gespeichert; mit „Speichern“ speicherst du sofort</span><span>Windows-Aktionen · Mail · Dateien · Browser</span></div>
+        </section>
+
+        <aside class="panel inspector-panel">
+          <div class="panel-header"><div><h2>Eigenschaften</h2><p id="inspector-subtitle">Flow-Konfiguration</p></div><div class="panel-header-actions"><button class="mini-button" id="flow-settings-btn" title="Flow-Einstellungen" aria-label="Flow-Einstellungen">⚙</button><button class="mini-button" id="properties-close-btn" title="Eigenschaften ausblenden" aria-label="Eigenschaften ausblenden">×</button></div></div>
+          <div id="inspector-content" class="inspector-content"><div class="inspector-empty"><div class="empty-icon">⚙</div><strong>Wähle einen Schritt</strong><p>Klicke auf eine Aktion im Canvas, um ihre Eigenschaften zu bearbeiten.</p></div></div>
+          <div class="inspector-bottom"><span class="shield">◈</span><div><strong>Kontrollierte Ausführung</strong><p>Jeder Flow wird erst nach deinem Klick gestartet. Es werden keine beliebigen Shell-Befehle ausgeführt.</p></div></div>
+        </aside>
+      </section>
+
+      <section class="activity-panel panel" id="activity-panel"><div class="activity-head"><div><h2>Aktivitätsprotokoll</h2><p>Was dein Flow zuletzt gemacht hat</p></div><button id="clear-log-btn" class="text-button">Protokoll leeren</button></div><div class="log-list" id="log-list"><div class="log-empty">Noch keine Ausführung. Starte einen Flow, um die Ergebnisse hier zu sehen.</div></div></section>
+
+      <section class="feature-panel panel" id="time-machine-panel">
+        <div class="feature-panel-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> TIME MACHINE</div><h2>Ausführungen nachvollziehen und reparieren</h2><p>Lokale Historie mit Schrittstatus, Eingaben, Ausgaben und Fehlern. Eine Fortsetzung ab einem gespeicherten Schritt ist möglich.</p></div><div class="btn-row"><button class="btn btn-ghost" id="history-refresh">↻ Aktualisieren</button><button class="btn btn-ghost" id="history-clear">Historie löschen</button></div></div>
+        <div class="history-layout"><div class="history-list" id="history-list"><div class="log-empty">Noch keine gespeicherten Ausführungen.</div></div><div class="history-detail" id="history-detail"><div class="inspector-empty"><div class="empty-icon">⟲</div><strong>Ausführung auswählen</strong><p>Wähle links einen Lauf, um die einzelnen Schritte und ihre Ergebnisse zu prüfen.</p></div></div></div>
+      </section>
+
+      <section class="feature-panel panel" id="marketplace-panel">
+        <div class="feature-panel-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> FLOW MARKETPLACE</div><h2>Vorlagen & Integrationen</h2><p>Starte mit fertigen Workflows oder teile deine eigenen über Export/Import als .lapsflow-Datei. Der Katalog arbeitet lokal; es gibt keinen externen Marketplace-Server.</p></div><div class="market-actions"><button class="btn btn-ghost" id="market-import">↥ Flow importieren</button><button class="btn btn-ghost" id="market-export">↧ Aktuellen Flow teilen</button></div></div>
+        <div class="market-section-title">VORLAGEN-KATALOG</div><div class="market-grid" id="market-template-list"></div>
+        <div class="market-section-title integrations-title">INTEGRATIONEN · LOKAL & VORINSTALLIERT</div><div class="integration-grid">
+          <div class="integration-card"><span>▰</span><strong>Dateisystem</strong><small>Ordner, Dateioperationen, Downloads, Dateisuchen und Sortierregeln</small><em>Direkt auf diesem PC</em></div>
+          <div class="integration-card"><span>▣</span><strong>Windows-Programme</strong><small>Apps starten, Fenster steuern und Prozessstarts überwachen</small><em>Windows-API</em></div>
+          <div class="integration-card"><span>↗</span><strong>Browser & Web-Apps</strong><small>URLs, Mailboxen und E-Mail-Entwürfe öffnen</small><em>Standardbrowser / URL</em></div>
+          <div class="integration-card"><span>♧</span><strong>Benachrichtigungen</strong><small>Windows-Hinweise, Zwischenablage und lokale Ereignisse</small><em>Ohne Cloud-Konto</em></div>
+        </div>
+      </section>
+      <footer class="main-footer"><span>© 2026 LAPS Company</span><span>Unabhängig entwickelt · Für Windows</span><button class="footer-help" id="about-link">Über LAPS ↗</button></footer>
+    </main>
+  </div>
+  <div class="modal-backdrop hidden" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
+    <div class="confirm-modal about-modal" role="document">
+      <div class="modal-icon">↗</div>
+      <h2 id="about-title">Über LAPS</h2>
+      <p id="about-description">Entdecke LAPS und die unabhängigen Softwareprojekte.</p>
+      <a class="about-url" id="about-url" href="https://sites.google.com/view/laps-web/home" target="_blank" rel="noopener noreferrer">https://sites.google.com/view/laps-web/home</a>
+      <p class="about-hint">Klicke auf den Link oder öffne die Website in deinem Standardbrowser.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="about-close-btn" type="button">Schließen</button>
+        <button class="btn btn-run" id="about-open-btn" type="button">Website öffnen ↗</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-area" class="toast-area" aria-live="polite"></div>
+  <div class="modal-backdrop hidden" id="confirm-modal"><div class="confirm-modal"><div class="modal-icon">↯</div><h2>Flow jetzt ausführen?</h2><p id="confirm-text">Die Aktionen in diesem Ablauf werden auf deinem PC ausgeführt.</p><div class="modal-actions"><button class="btn btn-ghost" id="cancel-run-btn">Abbrechen</button><button class="btn btn-run" id="confirm-run-btn">Ausführung starten</button></div></div></div>
+  <script src="field-state.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "name": "laps-flow",
+  "version": "1.0.0",
+  "description": "Reliable local-first Windows workflow automation by LAPS",
+  "main": "src/main.js",
+  "author": "LAPS Company",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check src/main.js && node --check src/field-state.js && node --check src/renderer.js && node --check src/preload.js && node --check src/flow-validator.js && node --check tests/app-defaults.test.js && node --check tests/flow-validator.test.js && node --check tests/textarea-persistence.test.js",
+    "dist": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable",
+    "pack": "electron-builder --dir",
+    "test": "node --test tests/*.test.js",
+    "verify": "npm run check && npm test"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.lapscompany.flow",
+    "productName": "LAPS Flow",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "LAPS-Flow-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LAPS Flow"
+    }
+  }
+}

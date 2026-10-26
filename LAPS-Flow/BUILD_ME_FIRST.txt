@@ -1,0 +1,13 @@
+LAPS FLOW v1.0.0 - WINDOWS BUILD
+
+1. Installiere Node.js 24 LTS von https://nodejs.org/ (falls noch nicht installiert).
+2. Entpacke den kompletten Projektordner.
+3. Doppelklicke auf build-windows.bat.
+4. Beim ersten Build lädt npm die benötigten Pakete herunter.
+5. Der Installer wird unter dist\LAPS-Flow-Setup-1.0.0.exe erzeugt.
+
+Alternativ im Projektordner in PowerShell: npm install; npm run verify; npm run dist
+
+Ein GitHub-Actions-Workflow liegt unter .github/workflows/build-windows.yml.
+
+Hinweis: Der Quellcode-ZIP enthält kein fertig gebautes Windows-Setup. Der Installer muss auf Windows mit den obigen Schritten gebaut werden.
