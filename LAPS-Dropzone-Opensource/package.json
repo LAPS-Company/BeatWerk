@@ -1,0 +1,51 @@
+{
+  "name": "laps-dropzone",
+  "version": "1.0.1",
+  "description": "A local-first desktop file staging and batch transfer tool by LAPS.",
+  "main": "src/main.js",
+  "author": "LAPS - Lukes App and Programming Society",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check src/main.js && node --check src/preload.js && node --check src/renderer.js && node --check src/core.js && node --check src/folder-scan.js",
+    "test": "node --test",
+    "dist": "electron-builder --win nsis",
+    "dist:dir": "electron-builder --win dir"
+  },
+  "devDependencies": {
+    "electron": "^43.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.laps.dropzone",
+    "productName": "LAPS Dropzone",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "README.md",
+      "LICENSE",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "LAPS-Dropzone-Setup-${version}.${ext}",
+      "icon": "assets/dropzone.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LAPS Dropzone",
+      "installerIcon": "assets/dropzone.ico",
+      "uninstallerIcon": "assets/dropzone.ico"
+    }
+  }
+}

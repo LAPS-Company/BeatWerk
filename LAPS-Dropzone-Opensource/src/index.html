@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>LAPS Dropzone</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light">
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img"><defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f7cff"/><stop offset="1" stop-color="#3255d8"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#brandGrad)"/><path d="M15 25h18M25 17l8 8-8 8" fill="none" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 14v20" fill="none" stroke="white" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="brand-copy"><span class="brand-eyebrow">LAPS</span><span class="brand-name">Dropzone</span></div>
+        <span class="version-pill">v1.0.1</span>
+      </div>
+      <div class="top-actions">
+        <span class="privacy-tag"><span class="privacy-dot"></span><span data-i18n="localOnly">Files stay on your device</span></span>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme"><span id="themeGlyph">☼</span></button>
+        <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">DE</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="intro-row">
+        <div>
+          <p class="section-kicker" data-i18n="kicker">YOUR FILE STAGING AREA</p>
+          <h1 data-i18n="headline">Gather files. Move as one.</h1>
+          <p class="intro-copy" data-i18n="subheadline">Collect files from different places, then copy or move them together — without jumping between folders.</p>
+        </div>
+        <div class="intro-art" aria-hidden="true"><div class="art-back art-back-one"></div><div class="art-back art-back-two"></div><div class="art-folder"><div class="folder-tab"></div><div class="folder-spark">↗</div></div><div class="art-file art-file-one">PDF</div><div class="art-file art-file-two">IMG</div></div>
+      </section>
+
+      <section class="add-card" id="dropTarget" aria-label="Add files">
+        <div class="drop-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 32V9m0 0-8 8m8-8 8 8M10 29v8a4 4 0 0 0 4 4h20a4 4 0 0 0 4-4v-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="drop-copy"><h2 data-i18n="dropTitle">Drop files here</h2><p data-i18n="dropDesc">Or add them from different folders. Nothing is moved until you choose an action.</p></div>
+        <div class="drop-buttons"><button class="button button-primary" id="addFilesBtn" type="button"><span class="button-plus">＋</span><span data-i18n="addFiles">Add files</span></button><button class="button button-secondary" id="addFolderBtn" type="button"><span class="button-icon">▱</span><span data-i18n="addFolder">Add folder</span></button></div>
+        <div class="drop-overlay"><strong data-i18n="dropNow">Drop to add to your collection</strong></div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="collection-panel panel">
+          <div class="panel-heading">
+            <div><p class="section-kicker" data-i18n="collectionLabel">COLLECTION</p><h2><span data-i18n="yourFiles">Your files</span> <span class="count-bubble" id="fileCount">0</span></h2></div>
+            <div class="panel-actions"><button class="text-button" id="exportBtn" type="button" data-i18n="exportList">Export list</button><button class="text-button danger-text" id="clearBtn" type="button" data-i18n="clearAll">Clear all</button></div>
+          </div>
+          <div class="collection-toolbar"><label class="search-box"><span class="search-icon">⌕</span><input type="search" id="searchInput" placeholder="Search your collection…" data-i18n-placeholder="searchPlaceholder" autocomplete="off"><kbd>Ctrl K</kbd></label><span class="toolbar-summary" id="selectionSummary">0 selected</span></div>
+          <div class="file-table-wrap" id="fileTableWrap">
+            <table class="file-table">
+              <thead><tr><th class="check-col"><input type="checkbox" id="selectVisible" aria-label="Select visible files"></th><th data-i18n="fileHeader">FILE</th><th data-i18n="locationHeader">LOCATION</th><th class="size-col" data-i18n="sizeHeader">SIZE</th><th class="status-col" data-i18n="statusHeader">STATUS</th><th class="remove-col"></th></tr></thead>
+              <tbody id="fileRows"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState"><div class="empty-illustration"><span>↗</span><i></i><b></b></div><h3 data-i18n="emptyTitle">Your dropzone is empty</h3><p data-i18n="emptyDesc">Add files from anywhere on your PC. They’ll collect here until you’re ready.</p><button class="button button-secondary" id="emptyAddBtn" type="button" data-i18n="browseFiles">Browse files</button></div>
+          </div>
+          <div class="collection-footer"><div class="footer-dot"></div><span data-i18n="savedLocally">Your collection is saved locally and restored next time.</span><span id="saveIndicator" class="save-indicator" aria-live="polite"></span></div>
+        </div>
+
+        <aside class="transfer-panel panel">
+          <div class="panel-heading transfer-heading"><div><p class="section-kicker" data-i18n="transferLabel">NEXT STEP</p><h2 data-i18n="transferFiles">Transfer files</h2></div><div class="transfer-symbol">↗</div></div>
+          <p class="panel-description" data-i18n="transferDesc">Choose where your selected files should go.</p>
+          <div class="destination-card"><div class="destination-icon">▱</div><div class="destination-copy"><span class="field-label" data-i18n="destinationLabel">DESTINATION FOLDER</span><strong id="destinationText" data-i18n="noDestination">No destination selected</strong><small id="destinationSubtext" data-i18n="destinationHelp">Choose a folder to continue</small></div><button class="mini-icon-button" id="chooseDestinationBtn" type="button" aria-label="Choose destination" title="Choose destination">↗</button></div>
+          <label class="field-label standalone-label" data-i18n="actionLabel">ACTION</label>
+          <div class="segmented" role="group" aria-label="Transfer action"><button class="segment active" id="copyModeBtn" type="button"><span>▣</span><span data-i18n="copyFiles">Copy files</span></button><button class="segment" id="moveModeBtn" type="button"><span>↗</span><span data-i18n="moveFiles">Move files</span></button></div>
+          <label class="field-label standalone-label" for="conflictMode" data-i18n="ifExists">IF A FILE ALREADY EXISTS</label>
+          <select class="select-input" id="conflictMode"><option value="rename" data-i18n="renameConflict">Keep both (rename incoming file)</option><option value="skip" data-i18n="skipConflict">Skip the incoming file</option></select>
+          <div class="transfer-summary"><div class="summary-row"><span data-i18n="selectedToTransfer">Selected to transfer</span><strong id="transferCount">0 files</strong></div><div class="summary-row"><span data-i18n="selectedSize">Total size</span><strong id="transferSize">0 B</strong></div><div class="summary-separator"></div><div class="summary-note"><span class="note-icon">ⓘ</span><span data-i18n="safeNote">Files are only changed when you press the action button. Existing files are never overwritten.</span></div></div>
+          <button class="button button-primary transfer-button" id="transferBtn" type="button" disabled><span id="transferBtnLabel" data-i18n="copySelected">Copy selected files</span><span class="button-arrow">→</span></button>
+          <p class="transfer-hint" id="transferHint" data-i18n="selectHint">Select files and choose a destination first.</p>
+        </aside>
+      </section>
+
+      <section class="activity-panel panel" id="activityPanel" hidden>
+        <div class="panel-heading"><div><p class="section-kicker" data-i18n="activityLabel">RECENT ACTIVITY</p><h2 data-i18n="lastTransfer">Last transfer</h2></div><span id="activityBadge" class="activity-badge"></span></div>
+        <div id="activityList" class="activity-list"></div>
+      </section>
+
+      <footer class="app-footer"><span>© 2026 LAPS · Lukes App and Programming Society</span><span><span class="footer-dot"></span><span data-i18n="footerLocal">Local-first. Your files stay on your PC.</span></span><button class="footer-link" id="aboutBtn" type="button" data-i18n="about">About LAPS</button></footer>
+    </main>
+  </div>
+  <div class="folder-context-menu" id="folderContextMenu" role="menu" hidden><button id="ungroupFolderAction" type="button" role="menuitem">Remove folder</button></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="confirmDialog" class="confirm-dialog"><div class="dialog-icon">!</div><h2 id="dialogTitle">Are you sure?</h2><p id="dialogMessage"></p><div class="dialog-actions"><button class="button button-secondary" id="dialogCancel" type="button">Cancel</button><button class="button button-primary" id="dialogConfirm" type="button">Confirm</button></div></dialog>
+  <script src="renderer.js"></script>
+</body>
+</html>
